@@ -1,4 +1,5 @@
 include <u_mouse_defs.scad>
+use     <u_mouse_caster.scad>
 
 module chassis_base_plate ()
   {
@@ -17,7 +18,7 @@ module wheel_cutouts ()
    translate([-60, -30, 0]) cube(size= [20, 60, chassis_thickness]);
    }
 
-module chassis ()
+module chassis_base ()
   {
    difference()
    {
@@ -27,4 +28,13 @@ module chassis ()
     }
    }
 
+module chassis ()
+  {
+   union ()
+    {
+     chassis_base();
+     translate([0,-50,0]) mirror([0,0,1]) caster(10);
+     translate([0,50,0]) mirror([0,0,1]) caster(10);
+    }
+   }
     chassis();
